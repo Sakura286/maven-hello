@@ -17,14 +17,15 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'rm -rf /.m2'
-                sh 'mvn -e -X package'
+                sh 'pwd'
+                sh 'mvn package'
             }
         }
     }
     post {
         always {
             echo 'This will always run'
+            archiveArtifacts artifacts: 'target/maven-hello-1.0-SNAPSHOT.jar', fingerprint: true
         }
         success {
             echo 'This will run only if successful'
