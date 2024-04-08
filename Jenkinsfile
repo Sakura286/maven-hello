@@ -1,5 +1,9 @@
 pipeline {
     agent { docker 'maven:3.3.3' }
+    environment {
+        MY_NAME = 'Sakrua286'
+        MY_MACHINE    = 'my-spoon'
+    }
     stages {
         stage('build') {
             steps {
@@ -8,6 +12,7 @@ pipeline {
                     sh 'echo -e "Hello Maven\n" >> hello'
                     sh 'cat hello'
                 }
+                sh 'printenv'
             }
         }
     }
