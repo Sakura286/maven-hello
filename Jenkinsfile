@@ -21,6 +21,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('Sanity Check') {
+            steps {
+                input 'Does the output look ok?'
+            }
+        }
     }
     post {
         always {
