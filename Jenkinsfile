@@ -1,18 +1,24 @@
 pipeline {
-    agent { docker 'maven:3.3.3' }
+    agent {
+        docker {
+            image 'maven:3.9.6'
+            args '-u root'
+        }
+    }
     environment {
         MY_NAME = 'Sakrua286'
         MY_MACHINE    = 'my-spoon'
     }
     stages {
-        stage('build') {
+        stage('Print Version') {
             steps {
                 sh 'mvn --version'
-                retry(3) {
-                    sh 'echo -e "Hello Maven\n" >> hello'
-                    sh 'cat hello'
-                }
-                sh 'printenv'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'rm -rf /.m2'
+                sh 'mvn -e -X package'
             }
         }
     }
