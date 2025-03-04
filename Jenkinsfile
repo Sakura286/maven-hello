@@ -1,13 +1,8 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.6'
-            args '-u root'
-        }
-    }
-    environment {
-        MY_NAME = 'Sakrua286'
-        MY_MACHINE    = 'my-spoon'
+    agent any
+    
+    tools {
+        maven 'mvn-3.9.9'
     }
     stages {
         stage('Print Version') {
@@ -17,13 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'pwd'
                 sh 'mvn package'
-            }
-        }
-        stage('Sanity Check') {
-            steps {
-                input 'Does the output look ok?'
             }
         }
     }
